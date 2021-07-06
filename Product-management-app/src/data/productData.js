@@ -236,23 +236,6 @@ export function getProductData() {
     
 }
 
-// const KEYS = {
-//     employees: 'employees',
-//     employeeId: 'employeeId'
-// }
-
-// export const getDepartmentCollection = () => ([
-//     { id: '1', title: 'Development' },
-//     { id: '2', title: 'Marketing' },
-//     { id: '3', title: 'Accounting' },
-//     { id: '4', title: 'HR' },
-// ])
-
-// export function insertBookingData(values) {
-//   localStorage.setItem('unnecessary', JSON.stringify(values));
-// }
-
-
 export function selectedProduct(values) {
       let products = JSON.parse(localStorage.getItem('products'))
       let recordIndex = products.findIndex(x => x.code == values.code);
@@ -297,18 +280,10 @@ let bookedProduct = getAllNewBookedProduct();
 
 }
 export function removeProduct (newBookedProduct) {
-  // let products = localStorage.getItem('products')
-  // products = products.filter(product => product.code !== newBookedProduct.code);
-  // localStorage.setItem('products', JSON.stringify(products));
         let products = JSON.parse(localStorage.getItem("products"));
         let newProducts
         newProducts = products.filter((product) => product.code !== newBookedProduct.code);
         localStorage.setItem('products', JSON.stringify(newProducts));
-
-    //     let items =JSON.parse(localStorage.getItem("item"));
-    // items = items.filter((item) => item.id !== id);
-    // localStorage.setItem("item", JSON.stringify(items));
-        
 }
 
 export function getAllNewBookedProduct() {
@@ -317,44 +292,3 @@ export function getAllNewBookedProduct() {
   let bookedProduct = JSON.parse(localStorage.getItem('bookedProduct'));
   return bookedProduct
 }
-
-// export function allProduct() {
-//     let products = JSON.parse(localStorage.getItem('booked'))
-//     return products.map(x => ({
-//       ...x
-//   }))
-// }
-
-// export function insertEmployee(data) {
-//     let employees = getAllEmployees();
-//     data['id'] = generateEmployeeId()
-//     employees.push(data)
-//     localStorage.setItem(KEYS.employees, JSON.stringify(employees))
-// }
-
-// export function updateEmployee(data) {
-//     let employees = getAllEmployees();
-//     let recordIndex = employees.findIndex(x => x.id == data.id);
-//     employees[recordIndex] = { ...data }
-//     localStorage.setItem(KEYS.employees, JSON.stringify(employees));
-// }
-
-// export function generateEmployeeId() {
-//     if (localStorage.getItem(KEYS.employeeId) == null)
-//         localStorage.setItem(KEYS.employeeId, '0')
-//     var id = parseInt(localStorage.getItem(KEYS.employeeId))
-//     localStorage.setItem(KEYS.employeeId, (++id).toString())
-//     return id;
-// }
-
-// export function getAllEmployees() {
-//     if (localStorage.getItem(KEYS.employees) == null)
-//         localStorage.setItem(KEYS.employees, JSON.stringify([]))
-//     let employees = JSON.parse(localStorage.getItem(KEYS.employees));
-//     //map departmentID to department title
-//     let departments = getDepartmentCollection();
-//     return employees.map(x => ({
-//         ...x,
-//         department: departments[x.departmentId - 1].title
-//     }))
-// }

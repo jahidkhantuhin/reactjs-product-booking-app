@@ -20,10 +20,10 @@ const useStyles = makeStyles({
   });
 
 export default function EmployeeForm(props) {
-    const products = productData.getProductData()
+    const products = productData.getBookedProductData()
     const [returningCalculation, setReturningCalculation] = useState (false)
-    const [selectedProduct, setSelectedProduct] = useState(null)
-    const currentTime = new Date()
+    const [selectedReturnProduct, setSelectedReturnProduct] = useState(null)
+
 
     const classes = useStyles();
     
@@ -58,8 +58,8 @@ export default function EmployeeForm(props) {
         resetForm
     } = useForm(initialBookingValues, true, validate);
     
-    const bookingComplete = () => {
-        productData.newBookedProduct(selectedProduct)
+    const returningComplete = () => {
+        productData.newReturnedProduct(selectedReturnProduct)
         addOrEdit(resetForm);
 
     }
@@ -67,11 +67,10 @@ export default function EmployeeForm(props) {
         e.preventDefault()
         if (validate()) {
             setReturningCalculation(true)
-            productData.selectedProduct(values)
-            setSelectedProduct (JSON.parse(localStorage.getItem('newSelected')))
+            productData.selectedReturnProduct(values)
+            setSelectedReturnProduct (JSON.parse(localStorage.getItem('newRSelected')))
         }
-        
-        
+      
         
     }
 
@@ -85,36 +84,27 @@ export default function EmployeeForm(props) {
 
     return (
         <>
+        {products != null ? <div>
         {returningCalculation ? 
         <Grid container>
             <Card className={classes.root}>
             <CardActionArea>
-            {selectedProduct.rent_period > 0 ? 
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {selectedProduct.name}
+                        {selectedReturnProduct.name}
                     </Typography>
                     
                     <Typography variant="body2" color="textSecondary" component="p">
-                        You choose Rent Period: <strong>{selectedProduct.rent_period}</strong>. 
-                        Total milage is {selectedProduct.mileage == null ? 'Not Applicable' : selectedProduct.mileage}. 
-                        {selectedProduct.needing_repair ? 'This product need to be fixed' : 'This product does not need to fixed' }.
-                        Total Price is <strong>{selectedProduct.price * selectedProduct.rent_period}</strong>.
+                        Used Milage: <strong>{selectedReturnProduct.mileage + (10 * selectedReturnProduct.rent_period)}</strong>.
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                     Do you want to proceed?
                     </Typography>
                 </CardContent>
-            : 
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                    <>Rental period must be greater than 1, then you can proceed...</>
-                    </Typography>
-                </CardContent>}
                 
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={bookingComplete} disabled={selectedProduct.rent_period <= 0}>
+                <Button size="small" color="primary" onClick={returningComplete}>
                 Ok
                 </Button>
                 <Button size="small" color="primary" onClick={() => setReturningCalculation(false)} >
@@ -149,7 +139,7 @@ export default function EmployeeForm(props) {
                 
             </Grid>
             
-        </Form>}
+        </Form>}</div> : <div> No Products booked yet. So returning product list is empty....</div>}
         
         </>
     )

@@ -122,7 +122,7 @@ export default function Employees() {
                             variant="outlined"
                             startIcon={<AddIcon />}
                             className={classes.newButton}
-                            onClick={() => { setOpenBookingPopup(true);}}
+                            onClick={() => { setOpenBookingPopup(true); setProductReturnForm(false)}}
                         />
                     </Toolbar>
                     <Toolbar>

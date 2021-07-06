@@ -67,7 +67,7 @@ export default function EmployeeForm(props) {
         if (validate()) {
             setBookingCalculation(true)
             productData.selectedProduct(values)
-            setSelectedProduct (JSON.parse(localStorage.getItem('newSelected')))
+            setSelectedProduct (JSON.parse(localStorage.getItem('newBSelected')))
         }
         
         

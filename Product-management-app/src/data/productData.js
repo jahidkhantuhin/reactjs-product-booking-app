@@ -251,7 +251,7 @@ export function selectedProduct(values) {
         toDate: values.toDate,
         name: products[recordIndex].name,
         type: products[recordIndex].type,
-        availability: products[recordIndex].availability,
+        availability: products[recordIndex].availability, 
         needing_repair: products[recordIndex].needing_repair,
         durability: products[recordIndex].durability,
         max_durability: products[recordIndex].max_durability ,
@@ -266,24 +266,33 @@ export function selectedProduct(values) {
 export function selectedReturnProduct(values) {
   let products = JSON.parse(localStorage.getItem('bookedProduct'))
   let recordIndex = products.findIndex(x => x.code == values.code);
-  
+  let fromDate= products[recordIndex].fromDate
+  let mileage= products[recordIndex].mileage
+  let rent_period= Math.floor(Math.floor(new Date().getTime() - new Date(fromDate).getTime()) / (1000*60*60*24))
+  let used_mileage= mileage + (10 * rent_period)
+  let durability= products[recordIndex].durability
+  let type= products[recordIndex].type
+  let reducedDurability
+  if (type == 'plain') {
+    reducedDurability = durability - (1 * rent_period) 
+} else {
+    reducedDurability = durability - (2 * rent_period) || durability - (2 * (used_mileage / 10))
+}
   const selectedReturnProduct = {
     code: values.code,
-    rent_period: products[recordIndex].rent_period,
-    fromDate: products[recordIndex].fromDate,
-    toDate: products[recordIndex].toDate,
+    till_return_date_rent_period: rent_period,
     name: products[recordIndex].name,
-    type: products[recordIndex].type,
+    type: type,
     availability: products[recordIndex].availability,
     needing_repair: products[recordIndex].needing_repair,
-    durability: products[recordIndex].durability,
     max_durability: products[recordIndex].max_durability ,
-    mileage: products[recordIndex].mileage,
+    used_mileage: used_mileage,
     price: products[recordIndex].price,
-    minimum_rent_period: products[recordIndex].minimum_rent_period
-
+    minimum_rent_period: products[recordIndex].minimum_rent_period,
+    reducedDurability: reducedDurability
   }
-  localStorage.setItem('newRSelected', JSON.stringify(selectedReturnProduct));       
+  localStorage.setItem('newRSelected', JSON.stringify(selectedReturnProduct)); 
+  newReturnedProduct()      
 }
 
 export function newBookedProduct (selectedProduct) {
@@ -308,7 +317,12 @@ let bookedProduct = getAllNewBookedProduct();
 }
 
 
-export function newReturnedProduct (selectedProduct) {
+export function newReturnedProduct () {
+  let values = JSON.parse(localStorage.getItem('newRSelected'))
+  const newValues = {
+    // rental_period: Math.floor(Math.floor(values.toDate.getTime() - values.fromDate.getTime()) / (1000*60*60*24))
+  }
+  return newValues
 //   const newBookedProduct = {
 //     code: selectedProduct.code,
 //     rent_period: selectedProduct.rent_period,

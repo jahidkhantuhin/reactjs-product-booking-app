@@ -25,14 +25,14 @@ export default function EmployeeForm(props) {
     const [selectedReturnProduct, setSelectedReturnProduct] = useState(null)
 
 
+
     const classes = useStyles();
     
     const { addOrEdit, recordForEdit } = props
 
-    const initialBookingValues = {
+    const initialReturningValues = {
         code: '',
-        fromDate: new Date(),
-        toDate: new Date()
+        currentDate: new Date()
     }
 
     
@@ -56,10 +56,10 @@ export default function EmployeeForm(props) {
         setErrors,
         handleInputChange,
         resetForm
-    } = useForm(initialBookingValues, true, validate);
+    } = useForm(initialReturningValues, true, validate);
     
     const returningComplete = () => {
-        productData.newReturnedProduct(selectedReturnProduct)
+        // productData.newReturnedProduct(selectedReturnProduct)
         addOrEdit(resetForm);
 
     }
@@ -95,7 +95,10 @@ export default function EmployeeForm(props) {
                     </Typography>
                     
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Used Milage: <strong>{selectedReturnProduct.mileage + (10 * selectedReturnProduct.rent_period)}</strong>.
+                        Used Milage: <strong>{selectedReturnProduct.used_mileage}</strong>.
+                        Reduced Durability: {selectedReturnProduct.reducedDurability}
+                        {/* Reduced Durability: <strong> {selectedReturnProduct.type == 'plain' ? selectedReturnProduct.durability - (1 * selectedReturnProduct.rent_period) :
+                         selectedReturnProduct.durability - (2 * selectedReturnProduct.rent_period) || selectedReturnProduct.durability - (2 * (selectedReturnProduct.used_mileage / 10))} </strong> */}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                     Do you want to proceed?

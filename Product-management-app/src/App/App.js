@@ -48,6 +48,7 @@ function App() {
 
   useEffect(() => {
     productData.insertProductData()
+    productData.getAllNewBookedProduct()
   });
 
   const classes = useStyles();

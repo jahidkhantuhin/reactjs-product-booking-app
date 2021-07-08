@@ -312,6 +312,7 @@ export function newBookedProduct (selectedProduct) {
 let bookedProduct = getAllNewBookedProduct();
     bookedProduct.push(newBookedProduct)
     localStorage.setItem('bookedProduct', JSON.stringify(bookedProduct));
+    localStorage.removeItem('newBSelected')
     removeProduct(newBookedProduct)
 }
 
@@ -323,6 +324,7 @@ export function newReturnedProduct () {
     products[recordIndex] = { ...selectedReturnProduct }
     products.push(products[recordIndex])
     localStorage.setItem('products', JSON.stringify(products));
+    localStorage.removeItem('newRSelected')
     let bookedProducts = JSON.parse(localStorage.getItem("bookedProduct"));
     let remianingBookedProducts = bookedProducts.filter((product) => product.code !== selectedReturnProduct.code);
     localStorage.setItem('bookedProduct', JSON.stringify(remianingBookedProducts));

@@ -323,24 +323,9 @@ export function newReturnedProduct () {
     products[recordIndex] = { ...selectedReturnProduct }
     products.push(products[recordIndex])
     localStorage.setItem('products', JSON.stringify(products));
-//   const newBookedProduct = {
-//     code: selectedProduct.code,
-//     rent_period: selectedProduct.rent_period,
-//     fromDate: selectedProduct.fromDate,
-//     toDate: selectedProduct.toDate,
-//     name: selectedProduct.name,
-//     availability: selectedProduct.availability,
-//     type: selectedProduct.type,
-//     durability: selectedProduct.durability,
-//     max_durability: selectedProduct.max_durability ,
-//     mileage: selectedProduct.mileage,
-//     price: selectedProduct.price,
-//     minimum_rent_period: selectedProduct.minimum_rent_period
-// }   
-// let bookedProduct = getAllNewBookedProduct();
-//     bookedProduct.push(newBookedProduct)
-//     localStorage.setItem('bookedProduct', JSON.stringify(bookedProduct));
-//     removeProduct(newBookedProduct)
+    let bookedProducts = JSON.parse(localStorage.getItem("bookedProduct"));
+    let remianingBookedProducts = bookedProducts.filter((product) => product.code !== selectedReturnProduct.code);
+    localStorage.setItem('bookedProduct', JSON.stringify(remianingBookedProducts));
 }
 
 

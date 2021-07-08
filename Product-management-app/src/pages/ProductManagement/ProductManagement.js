@@ -101,7 +101,7 @@ export default function Employees() {
                     <TableBody>
                         {
                             recordsAfterPagingAndSorting().map((item, index) =>
-                                (<TableRow key={item.code}>
+                                (<TableRow key={index+1}>
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.code}</TableCell>

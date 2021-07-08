@@ -59,7 +59,7 @@ export default function EmployeeForm(props) {
     } = useForm(initialReturningValues, true, validate);
     
     const returningComplete = () => {
-        // productData.newReturnedProduct(selectedReturnProduct)
+        productData.newReturnedProduct()
         addOrEdit(resetForm);
 
     }
@@ -95,10 +95,8 @@ export default function EmployeeForm(props) {
                     </Typography>
                     
                     <Typography variant="body2" color="textSecondary" component="p">
-                        Used Milage: <strong>{selectedReturnProduct.used_mileage}</strong>.
-                        Reduced Durability: {selectedReturnProduct.reducedDurability}
-                        {/* Reduced Durability: <strong> {selectedReturnProduct.type == 'plain' ? selectedReturnProduct.durability - (1 * selectedReturnProduct.rent_period) :
-                         selectedReturnProduct.durability - (2 * selectedReturnProduct.rent_period) || selectedReturnProduct.durability - (2 * (selectedReturnProduct.used_mileage / 10))} </strong> */}
+                        Used Milage: <strong>{selectedReturnProduct.mileage}</strong>.
+                        Reduced Durability: {selectedReturnProduct.durability}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                     Do you want to proceed?

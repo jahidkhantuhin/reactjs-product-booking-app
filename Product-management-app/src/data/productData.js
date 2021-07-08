@@ -280,19 +280,18 @@ export function selectedReturnProduct(values) {
 }
   const selectedReturnProduct = {
     code: values.code,
-    till_return_date_rent_period: rent_period,
+    rent_period: rent_period,
     name: products[recordIndex].name,
     type: type,
     availability: products[recordIndex].availability,
     needing_repair: products[recordIndex].needing_repair,
     max_durability: products[recordIndex].max_durability ,
-    used_mileage: used_mileage,
+    Mileage: used_mileage,
     price: products[recordIndex].price,
     minimum_rent_period: products[recordIndex].minimum_rent_period,
-    reducedDurability: reducedDurability
+    durability: reducedDurability
   }
-  localStorage.setItem('newRSelected', JSON.stringify(selectedReturnProduct)); 
-  newReturnedProduct()      
+  localStorage.setItem('newRSelected', JSON.stringify(selectedReturnProduct));
 }
 
 export function newBookedProduct (selectedProduct) {
@@ -318,11 +317,12 @@ let bookedProduct = getAllNewBookedProduct();
 
 
 export function newReturnedProduct () {
-  let values = JSON.parse(localStorage.getItem('newRSelected'))
-  const newValues = {
-    // rental_period: Math.floor(Math.floor(values.toDate.getTime() - values.fromDate.getTime()) / (1000*60*60*24))
-  }
-  return newValues
+    let products = JSON.parse(localStorage.getItem('products'))
+    let selectedReturnProduct = JSON.parse(localStorage.getItem('newRSelected'))
+    let recordIndex = products.findIndex(x => x.code == selectedReturnProduct.code)
+    products[recordIndex] = { ...selectedReturnProduct }
+    products.push(products[recordIndex])
+    localStorage.setItem('products', JSON.stringify(products));
 //   const newBookedProduct = {
 //     code: selectedProduct.code,
 //     rent_period: selectedProduct.rent_period,
